@@ -39,7 +39,7 @@ def main():
 
     SyncAudience.Sync()
 
-
+    print("test")
     ### SYNC CLICKERS/OPENERS
 
 
