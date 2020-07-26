@@ -10,8 +10,10 @@ class MailChimpAudience:
     unsubscribe_count = None
     last_sub_date = None
     last_unsub_date = None
+    last_sync_date = None
 
-    def __init__(self, id, web_id, name, date_created, member_count, unsubscribe_count, last_sub_date, last_unsub_date):
+    def __init__(self, id=None, web_id=None, name=None, date_created=None, member_count=None, unsubscribe_count=None,
+                 last_sub_date=None, last_unsub_date=None):
         self.id = id
         self.web_id = web_id
         self.name = name
@@ -20,6 +22,7 @@ class MailChimpAudience:
         self.unsubscribe_count = unsubscribe_count
         self.last_sub_date = last_sub_date
         self.last_unsub_date = last_unsub_date
+
 
     def __hash__(self):
         return hash(self.id)
@@ -32,8 +35,9 @@ class MailChimpAudience:
 
     def __str__(self):
         return "%s : %s : %s : %s : %s : %s : %s : %s " % (self.id, self.web_id, self.name, self.date_created,
-                                                          self.member_count, self.unsubscribe_count, self.last_sub_date,
-                                                          self.last_unsub_date)
+                                                           self.member_count, self.unsubscribe_count,
+                                                           self.last_sub_date,
+                                                           self.last_unsub_date)
 
     def insertDB(self, connection):
 
@@ -58,9 +62,25 @@ class MailChimpAudience:
         member_count =%s, unsubscribe_count =%s, last_sub_date =%s, last_unsub_date =%s
         WHERE id = %s;"""
         cursor.execute(sql_update_query, (self.web_id, self.name, self.date_created, self.member_count,
-                                          self.unsubscribe_count, self.last_sub_date, self.last_unsub_date,  self.id))
+                                          self.unsubscribe_count, self.last_sub_date, self.last_unsub_date, self.id))
         connection.commit()
         count = cursor.rowcount
         #### TO_DO -> CHECKS AND ERROR
         logging.debug('update')
         cursor.close()
+
+    def getAudienceOnID(self, connection, id):
+        cursor = connection.cursor()
+        sql_query = "SELECT * FROM public.mailchimp_audiences WHERE id =%s ;"
+        cursor.execute(sql_query, (id,) )
+        temp = cursor.fetchone()
+        self.id = temp[0]
+        self.web_id = temp[1]
+        self.name = temp[2]
+        self.date_created = temp[3]
+        self.member_count = temp[4]
+        self.unsubscribe_count = temp[5]
+        self.last_sub_date = temp[6]
+        self.last_sync_date = temp[7]
+        logging.debug('select')
+        return self

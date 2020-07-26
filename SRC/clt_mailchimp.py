@@ -1,6 +1,6 @@
 import logging
 
-from SRC.Mailchimp.Audience import SyncAudience
+from SRC.Mailchimp.Audience import SyncAudience, SyncAudiencePotential
 from SRC.Mailchimp.Campaign import SyncCampaign
 from SRC.Utilities.Param import Param
 from SRC.Utilities.DBConnection import DBConnection
@@ -11,7 +11,7 @@ from SRC.Utilities.MailchimpConnection import MailchimpConnection
 
 
 def main():
-    logging.basicConfig(format="%(asctime)s : %(levelname)s : %(message)s", level=logging.INFO)
+    logging.basicConfig(format="%(asctime)s : %(levelname)s : %(message)s", level=logging.DEBUG)
 
     ### PARAM CREATION
     localParam = Param.getParam()
@@ -32,18 +32,17 @@ def main():
     ### SYNC CAMPAIGN
 
 
-    SyncCampaign.Sync()
+    #SyncCampaign.Sync()
 
 
     ### SYNC AUDIENCES
 
-    SyncAudience.Sync()
+    #SyncAudience.Sync()
+    SyncAudiencePotential.Sync()
 
-    print("test")
-    print("test2")
     ### SYNC CLICKERS/OPENERS
 
-
+    #SyncClicker.Sync()
 
     ### SYNC BOUNCES
 

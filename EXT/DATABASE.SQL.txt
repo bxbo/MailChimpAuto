@@ -19,7 +19,9 @@ create table mailchimp_campaigns (
 	open_rate int,
 	clicks int,
 	click_rate int,
-	last_sync_date timestamp
+	last_sync_date_clickers timestamp,
+	last_sync_date_viewers timestamp,
+	last_sync_date_unsub timestamp
 );
 
 create table mailchimp_audiences (
@@ -30,5 +32,6 @@ create table mailchimp_audiences (
     member_count int,
     unsubscribe_count int,
 	last_sub_date timestamp,
-	last_unsub_date timestamp
+	last_unsub_date timestamp,
+	last_sync_date timestamp
 );
