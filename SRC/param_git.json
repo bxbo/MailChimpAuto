@@ -1,0 +1,11 @@
+{
+  "client": "soskd",
+  "mailchimp_key": "",
+  "mailchimp_user": "",
+  "db_user": "",
+  "db_pwd": "",
+  "db_name": "",
+  "db_host": "",
+  "db_port": "",
+  "nb_days_sync": "60"
+}
