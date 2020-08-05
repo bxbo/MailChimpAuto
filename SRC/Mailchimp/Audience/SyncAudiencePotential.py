@@ -87,6 +87,7 @@ def Sync():
                                             audience.id)
             MCMembersList.append(currentMember)
 
+
         DBMembersList = MailChimpMember.getAllMember(connection)
         if len(MCMembersList) > 0:
 
