@@ -20,7 +20,7 @@ from SRC.Utilities.utilities import intersectionList, dateSQL
 #    - update existing ones
 
 def Sync():
-    logging.info("Start Sync of Audience")
+    logging.info("SyncAudience : Start Sync of Audience")
     #### INIT MANDATORY
     localConnection = DBConnection.connect()
     connection = localConnection.connection
@@ -32,7 +32,7 @@ def Sync():
     currentMCAudience = []
     knownMCAudience = []
     audiences = mailchimpConnection.lists.all(get_all=True)
-    logging.debug('mailchimp audience retreived : %s', len(audiences['lists']))
+    logging.debug('SyncAudience : mailchimp audience retreived : %s', len(audiences['lists']))
 
     for c in audiences['lists']:
         currentAudience = MailChimpAudience(c['id'],
@@ -62,10 +62,10 @@ def Sync():
         cursor.close()
     except OperationalError as e:
         print(f"The error '{e}' occurred")
-    logging.debug('mailchimp known Audience retreived : %s', len(knownMCAudience))
+    logging.debug('SyncAudience : mailchimp known Audience retreived : %s', len(knownMCAudience))
 
     newMCAudiences = (set(currentMCAudience) - set(knownMCAudience))
-    logging.debug("number of new Audience = %s ", len(newMCAudiences))
+    logging.debug("SyncAudience : number of new Audience = %s ", len(newMCAudiences))
     for campaign in newMCAudiences:
         campaign.insertDB(connection)
 
@@ -73,8 +73,8 @@ def Sync():
     ### If id is known i update everything exect id from mailchimp
     ### Have to invest time in understanding why but ORDER IS IMPORTANT
     updateMCAudiences = intersectionList(knownMCAudience, currentMCAudience)
-    logging.debug("number of Audience to update = %s ", len(updateMCAudiences))
+    logging.debug("SyncAudience : number of Audience to update = %s ", len(updateMCAudiences))
     for campaign in updateMCAudiences:
         campaign.updateDBonID(connection)
 
-    logging.info("%s audiences created + %s audiences updated", len(newMCAudiences), len(updateMCAudiences))
+    logging.info("SyncAudience : %s audiences created + %s audiences updated", len(newMCAudiences), len(updateMCAudiences))

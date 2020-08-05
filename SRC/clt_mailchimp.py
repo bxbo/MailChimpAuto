@@ -37,7 +37,7 @@ def main():
 
     ### SYNC AUDIENCES
 
-    #SyncAudience.Sync()
+    SyncAudience.Sync()
     SyncAudiencePotential.Sync()
 
     ### SYNC CLICKERS/OPENERS

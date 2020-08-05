@@ -1,10 +1,14 @@
 import json
 import logging
+import uuid
+
 
 class Param:
     __param = None
 
     params = None
+
+    uuid = None
 
     @staticmethod
     def getParam():
@@ -17,6 +21,7 @@ class Param:
         logging.debug("Param : you entered the singleton constructor")
         with open(filename, 'r') as f:
             self.params = json.load(f)
+            self.uuid = str(uuid.uuid1())
         """ Virtually private constructor. """
         if Param.__param is not None:
             raise Exception("This class is a singleton!")

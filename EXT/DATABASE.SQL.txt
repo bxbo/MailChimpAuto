@@ -35,3 +35,18 @@ create table mailchimp_audiences (
 	last_unsub_date timestamp,
 	last_sync_date timestamp
 );
+
+create table mailchimp_members (
+    id varchar(100),
+	email_address varchar(100),
+    status varchar(100),
+    timestamp_signup timestamp,
+    timestamp_opt timestamp,
+    last_changed timestamp,
+    language varchar(2),
+	last_unsub_date timestamp,
+	last_sync_date timestamp,
+    unique_email_id varchar(100),
+    web_id varchar(100),
+    audience_id varchar(100)
+);

@@ -14,6 +14,6 @@ unsub = mailchimpConnection.lists.segments.all(list_id='80d0dbbc43', get_all=Fal
 #print(json.dumps(unsub, indent=2))
 
 
-lits = mailchimpConnection.lists.members.all(list_id='80d0dbbc43', get_all=True, fields="members.email_address,members.last_changed", since_last_changed="2020-08-26T17:38:44+00:00")
+lits = mailchimpConnection.lists.members.all(list_id='80d0dbbc43', get_all=True, fields="members.email_address,members.last_changed", since_last_changed="2020-08-01T22:30:22+00:00")
 
 print(json.dumps(lits, indent=2))
